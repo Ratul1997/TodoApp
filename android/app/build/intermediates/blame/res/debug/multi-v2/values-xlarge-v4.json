@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "/home/rat/Desktop/CourseDiligite/tuitorial/android/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-xlarge-v4/values-xlarge-v4.xml",
+            "outputFile": "/home/rat/Desktop/CourseDiligite/Todo/android/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-xlarge-v4/values-xlarge-v4.xml",
             "map": [
                 {
                     "source": "/home/rat/.gradle/caches/transforms-2/files-2.1/3a1c9e556421120b91c14e3b0d627909/appcompat-1.2.0/res/values-xlarge-v4/values-xlarge-v4.xml",

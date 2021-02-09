@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "/home/rat/Desktop/CourseDiligite/tuitorial/android/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-fi/values-fi.xml",
+            "outputFile": "/home/rat/Desktop/CourseDiligite/Todo/android/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-fi/values-fi.xml",
             "map": [
                 {
                     "source": "/home/rat/.gradle/caches/transforms-2/files-2.1/c26c2e3afcc8be2ec53ac559855da3de/jetified-play-services-base-16.0.1/res/values-fi/values.xml",

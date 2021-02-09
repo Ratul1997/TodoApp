@@ -1,58 +1,62 @@
-import React, { Component, useState } from "react";
-import {
-  StyleSheet,
-  Text,
-  View,
-  Button,
-  FlatList
-} from "react-native";
+/// import libraries
+import React, { Component, useState, useEffect, useRef } from "react";
+import { Text, View, Button, FlatList, Dimensions } from "react-native";
 import Header from "../common/Header";
 import normalization from "../constant/normalization";
 import { TodoModel } from "../models/TodoModel";
 import { TouchableOpacity, TextInput } from "react-native-gesture-handler";
+import Item from "./Item";
 
-const Item = ({ title }) => (
-  <TouchableOpacity onLongPress={()=>console.log("Long Pressed")}
-    style={{
-      padding: normalization(15),
-      borderRadius: normalization(10),
-      elevation: 3,
-      shadowColor: "black",
-      shadowOffset: {
-        width: 0,
-        height: 6
-      },
-      shadowOpacity: 0.35,
-      marginHorizontal: normalization(5),
-      marginVertical: normalization(5)
-    }}
-  >
-    <Text>{title}</Text>
-  </TouchableOpacity>
-);
+/// dimensions
+const SCREEN_WIDTH = Dimensions.get("window").width;
+const SCREEN_HEIGHT = Dimensions.get("window").height;
 
 export default function Home() {
+  /// states declaration start
   const initialState = [
     new TodoModel("Course is Running"),
     new TodoModel("Have to spent time")
-  ]
-  const initialTextValue = ''
-  const [textValue, setTextValue] = useState(initialTextValue)
-  const [data, setData] = useState(initialState)
+  ];
+  const initialTextValue = "";
+  const [textValue, setTextValue] = useState(initialTextValue);
+  const [data, setData] = useState(initialState);
+  
+  /// render Flatlist Item
   const renderItem = ({ index, item }) => {
-    return <Item title = {item.title}/>;
+    return (
+      <Item item={item} index={index} onUpdate={onUpdate} onDelete={onDelete} />
+    );
   };
 
-  const onSubmit = () =>{
-    const oldData = data
-    oldData.push(new TodoModel(textValue))
-    setData(oldData)
-    setTextValue(initialTextValue)
-  }
+  ///update data
+  const onUpdate = (newTitle, index) => {
+    const previousTodoList = data;
+    previousTodoList[index].title = newTitle;
+    setData([...previousTodoList]);
+  };
 
+  ///onAdd
+  const onSubmit = () => {
+    const oldData = data;
+    oldData.push(new TodoModel(textValue));
+    setData(oldData);
+    setTextValue(initialTextValue);
+  };
+
+  ///onDelete Data
+  const onDelete = index => {
+    console.log("Delete");
+    const previousTodoList = data;
+    previousTodoList.splice(index, 1);
+    setData([...previousTodoList]);
+  };
   return (
     <View style={{ flex: 1 }}>
+      {/* header Start */}
       <Header title="Todo" />
+      {/* header End */}
+
+      {/* TextInput filed Start */}
       <View
         style={{
           flexDirection: "row",
@@ -69,13 +73,15 @@ export default function Home() {
             borderWidth: 1,
             textAlignVertical: "top"
           }}
-          value ={textValue}
-          onChangeText = {text =>  setTextValue(text)}
+          value={textValue}
+          onChangeText={text => setTextValue(text)}
           multiline
-
         />
-        <Button title="ADD" onPress = {onSubmit}/>
+        <Button title="ADD" onPress={onSubmit} />
       </View>
+      {/* TextInput filed End */}
+
+      {/* FlatList Item Start*/}
       <View style={{ flex: 1, backgroundColor: "transparent" }}>
         <FlatList
           data={data}
@@ -83,6 +89,7 @@ export default function Home() {
           keyExtractor={(item, index) => String(index)}
         />
       </View>
+      {/* FlatList Item End*/}
     </View>
   );
 }
